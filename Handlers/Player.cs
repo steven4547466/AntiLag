@@ -26,10 +26,18 @@ namespace AntiLag.Handlers
 			foreach (Collider c in colliders)
 			{
 				Pickup p = c.gameObject.GetComponent<Pickup>();
-				if (p != null && p.Rb != pickup.Rb && p.itemId == pickup.itemId)
+				if (p != null && p.Rb != pickup.Rb && p.itemId == pickup.itemId && p.durability < Plugin.Instance.Config.MaxAmmoStackSize)
 				{
-					p.durability += pickup.durability;
-					UnityEngine.Object.Destroy(pickup.gameObject);
+					if (p.durability + pickup.durability <= Plugin.Instance.Config.MaxAmmoStackSize)
+					{
+						p.durability += pickup.durability;
+						UnityEngine.Object.Destroy(pickup.gameObject);
+					} 
+					else
+					{
+						pickup.durability = Mathf.Abs(pickup.durability - p.durability);
+						p.durability = Plugin.Instance.Config.MaxAmmoStackSize;
+					}
 					break;
 				}
 			}
