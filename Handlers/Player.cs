@@ -21,6 +21,8 @@ namespace AntiLag.Handlers
 			if (!pickup.itemId.IsAmmo())
 				return;
 
+			// While OverlapSphere is not the best for efficiency (it loops over every game object) I don't know
+			// what else I could use here. The layermask does help though.
 			Collider[] colliders = Physics.OverlapSphere(pickup.Networkposition, 3, LayerMask.GetMask("Pickup"));
 
 			foreach (Collider c in colliders)

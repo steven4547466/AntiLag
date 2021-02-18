@@ -48,12 +48,12 @@ namespace AntiLag
 		public void RegisterEvents()
 		{
 			player = new Handlers.Player();
-			Player.ItemDropped += player.OnItemDropped;
+			if (Plugin.Instance.Config.EnableAmmoStacking) Player.ItemDropped += player.OnItemDropped;
 		}
 
 		public void UnregisterEvents()
 		{
-			Player.ItemDropped -= player.OnItemDropped;
+			if (Plugin.Instance.Config.EnableAmmoStacking)  Player.ItemDropped -= player.OnItemDropped;
 			player = null;
 		}
 	}

@@ -11,11 +11,20 @@ using static HarmonyLib.AccessTools;
 namespace AntiLag.Patches
 {
 	[HarmonyPatch(typeof(AmmoBox), nameof(AmmoBox.CallCmdDrop))]
-	class AmmoBoxCallCmdDropPatch
+	class AmmoBoxPatches
 	{
 		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
 		{
 			var newInstructions = ListPool<CodeInstruction>.Shared.Rent(instructions);
+
+			if (!Plugin.Instance.Config.EnableAmmoStacking)
+			{
+				foreach (CodeInstruction code in newInstructions)
+					yield return code;
+
+				ListPool<CodeInstruction>.Shared.Return(newInstructions);
+				yield break;
+			}
 
 			var pickup = generator.DeclareLocal(typeof(Pickup));
 
