@@ -7,6 +7,9 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Player = Exiled.Events.Handlers.Player;
 using HarmonyLib;
+using UnityEngine;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace AntiLag
 {

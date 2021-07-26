@@ -94,7 +94,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Handlers\Player.cs" />
     <Compile Include="Patches\AmmoBoxPatches.cs" />
-    <Compile Include="Patches\Scp173Patches.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
